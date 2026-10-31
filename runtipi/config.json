@@ -1,0 +1,29 @@
+{
+  "name": "Coros",
+  "id": "wizard-coros",
+  "wizard_type": "external",
+  "available": true,
+  "short_desc": "External: connect COROS so Health and your agent get sleep, HRV, resting heart rate and training load (read-only). Just sign in with your COROS account.",
+  "author": "Humanity Labs",
+  "port": 8842,
+  "categories": [
+    "network"
+  ],
+  "description": "Connect your COROS with one button inside the app. What you need: only your free COROS account (the one your watch syncs to). You sign in on COROS's own page; there is no developer account, approval, key or fee, because the app uses COROS's self-service MCP connection for apps. The app keeps a private synced copy and offers it read-only to other apps on this box through the health-data contract; the Health app shows sleep score and stages, HRV, resting heart rate and COROS training load. COROS has no daily recovery score, so this source sends none.",
+  "tipi_version": 1,
+  "version": "0.1.0",
+  "source": "https://github.com/oscarhenrycollins/wizard-coros",
+  "exposable": false,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "created_at": 1793441406000,
+  "updated_at": 1793441406000,
+  "dynamic_config": true,
+  "min_tipi_version": "4.8.0",
+  "uid": 1000,
+  "gid": 1000,
+  "form_fields": [],
+  "no_gui": false
+}

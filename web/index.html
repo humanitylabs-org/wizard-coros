@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-app="wizard-coros" data-version="0.1.0">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <title>Coros</title>
+  <script src="boot.js"></script>
+  <link rel="stylesheet" href="wizard-tokens.css">
+  <link rel="stylesheet" href="wizard-ui.css">
+  <link rel="stylesheet" href="standalone.css">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="/wizard-os-home/core/app-client.js"></script>
+  <script defer src="wizard-sheet.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="wz-app">
+    <main class="wz-scroll" id="main">
+      <section class="hl-top" aria-label="Coros connection">
+        <div class="wz-conn hl-solid">
+          <div class="wz-tile hl-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 18 9.5 7l3.5 6 2-3.2L21 18Z"/></svg></div>
+          <div class="wz-main"><b>Coros</b><small id="conn-line">Checking…</small></div>
+          <span id="conn-pill" class="wz-pill off">…</span>
+        </div>
+      </section>
+
+      <section id="account" class="hl-account" hidden aria-label="Connected account">
+        <ul class="wz-list hl-solid hl-rows">
+          <li class="wz-row">
+            <span class="wz-tile hl-avatar" aria-hidden="true">C</span>
+            <span class="wz-main"><b>Your COROS</b><small id="acct-sub"></small></span>
+          </li>
+          <li class="wz-row">
+            <span class="wz-tile hl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></span>
+            <span class="wz-main"><b id="sync-title">Synced</b><small id="sync-sub"></small></span>
+          </li>
+        </ul>
+        <p id="sync-error" class="hl-warn" hidden></p>
+        <div class="wz-actions">
+          <button type="button" class="wz-button" id="sync-now">Sync now</button>
+          <a class="wz-button secondary" id="open-health" href="/wizard-health/">Open Health</a>
+        </div>
+        <p class="hl-hint hl-pad">Your sleep, HRV, resting heart rate and training load show in the Health app. COROS has no daily recovery score, so Health shows recovery from another source or none. This app only keeps the COROS sign-in and the synced copy.</p>
+      </section>
+
+      <section id="setup" class="hl-setup" hidden aria-label="Set up Coros">
+        <p class="hl-lead">Connect your COROS in two steps. You sign in on COROS's own page; nothing to copy or paste.</p>
+        <ol class="hl-steps">
+          <li class="hl-step" data-step="1">
+            <button type="button" class="hl-step-h"><span class="hl-num">1</span><span class="hl-step-t">Have a COROS account</span></button>
+            <div class="hl-step-b">
+              <p>You need the free COROS account your watch syncs to in the COROS app. There is no fee, no developer account and no approval: COROS lets apps like this one connect directly.</p>
+              <p class="hl-hint">Sleep, HRV and resting heart rate come from COROS watches that measure them. No account yet? <a id="signup-link" target="_blank" rel="noopener noreferrer">Get the COROS app</a>.</p>
+              <div class="wz-actions"><button type="button" class="wz-button" data-next="2">I have an account</button></div>
+            </div>
+          </li>
+          <li class="hl-step" data-step="2">
+            <button type="button" class="hl-step-h"><span class="hl-num">2</span><span class="hl-step-t">Connect with COROS</span></button>
+            <div class="hl-step-b">
+              <ol class="hl-sub">
+                <li>Tap <b>Connect with COROS</b>. COROS's sign-in page opens in a new tab.</li>
+                <li>Sign in with your COROS email and password and allow access.</li>
+                <li>Come back here. This screen finishes by itself within a few seconds.</li>
+              </ol>
+              <label class="hl-field hl-region"><span>Account region</span>
+                <select class="wz-input" id="f-region">
+                  <option value="auto" selected>Automatic</option><option value="us">United States and most countries</option>
+                  <option value="eu">Europe</option><option value="cn">Mainland China</option>
+                </select>
+              </label>
+              <div class="wz-actions">
+                <button type="button" class="wz-button" id="connect">Connect with COROS</button>
+                <a class="wz-button secondary" id="login-link" target="_blank" rel="noopener noreferrer" hidden>Open COROS sign-in</a>
+                <button type="button" class="wz-button secondary" id="svc-test">Check COROS</button>
+              </div>
+              <p id="test-result" class="hl-result" role="status" aria-live="polite"></p>
+              <p id="connect-note" class="hl-hint" role="status" aria-live="polite"></p>
+              <p class="hl-hint">The sign-in page works for about five minutes. If it runs out, tap Connect with COROS again. Pick a region only if Automatic does not find your account.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <details class="wz-more" id="more" hidden>
+        <summary>Connection details</summary>
+        <dl class="hl-dl" id="details"></dl>
+        <div class="wz-actions">
+          <button type="button" class="wz-button secondary hl-danger" id="open-disconnect">Disconnect</button>
+        </div>
+      </details>
+    </main>
+    <p id="status" class="wz-status wz-sr" role="status" aria-live="polite"></p>
+  </div>
+
+  <dialog class="wz-sheet" id="sheet-disconnect" aria-labelledby="sd-h">
+    <h2 id="sd-h">Disconnect Coros?</h2>
+    <p>The app ends its COROS sign-in and deletes its synced copy. Health stops showing COROS data. Your data on COROS is not touched.</p>
+    <label class="hl-checkrow"><input type="checkbox" id="sd-forget"> Also forget this app's registration with COROS</label>
+    <div class="wz-actions"><button type="button" class="wz-button hl-danger-fill" id="sd-go">Disconnect</button></div>
+  </dialog>
+</body>
+</html>

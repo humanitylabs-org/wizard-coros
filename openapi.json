@@ -1,0 +1,225 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Coros connector API",
+  "version": "0.1.0",
+  "description": "Box-local API of the Coros connector (contract wizard.health-data/1, docs/health-data-contract.md). Responses never include tokens."
+ },
+ "paths": {
+  "/healthz": {
+   "get": {
+    "summary": "Health check: version, connection status, last sync",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/api/status": {
+   "get": {
+    "summary": "Contract status (wizard.health-data/1): source identity, status, account, dataset id, last/next sync, history span, counts, scales; plus this app's setup state",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/api/days": {
+   "get": {
+    "summary": "Contract read, box-only: normalized day records oldest first, paged; changed_since returns only changed days",
+    "parameters": [
+     {
+      "name": "from",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "YYYY-MM-DD inclusive"
+     },
+     {
+      "name": "to",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "YYYY-MM-DD inclusive"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "days per page, default 100, max 500"
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "next_page from the previous reply"
+     },
+     {
+      "name": "changed_since",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "cursor from an earlier reply; empty = everything"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/api/setup": {
+   "get": {
+    "summary": "Setup guide values (dashboard link, scopes, redirect suggestion, whether keys are saved; never the keys)",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/api/sync": {
+   "post": {
+    "summary": "Pull new Coros data now",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    },
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/login/start": {
+   "post": {
+    "summary": "Start the COROS sign-in: discover the region, register this app once (dynamic registration), open a COROS login session; returns the COROS login page. The app finishes by itself after the owner signs in.",
+    "requestBody": {
+     "required": false,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "region": {
+          "type": "string",
+          "enum": [
+           "auto",
+           "us",
+           "eu",
+           "cn"
+          ]
+         },
+         "timezone": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/api/login/cancel": {
+   "post": {
+    "summary": "Forget a waiting sign-in",
+    "requestBody": {
+     "required": false,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {}
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/api/check": {
+   "post": {
+    "summary": "Check COROS's real token endpoint with a made-up refresh token (no account touched)",
+    "requestBody": {
+     "required": false,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "region": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/api/disconnect": {
+   "post": {
+    "summary": "Revoke the COROS sign-in and delete the synced copy (forget_registration drops the app registration too)",
+    "requestBody": {
+     "required": false,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "forget_registration": {
+          "type": "boolean"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  }
+ }
+}

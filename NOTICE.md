@@ -1,0 +1,3 @@
+# Source and license notice
+
+Coros (wizard-coros) started from the Garmin connector (wizard-garmin), itself from the Polar and the WHOOP connector and Wizard App Manager's hello-wizard reference template (GPL-3.0-only), and keeps its canonical Wizard style snapshot (`web/boot.js`, `web/wizard-tokens.css`, `web/wizard-ui.css`, `web/wizard-sheet.js`, pinned by `appearance-provenance.json`) unchanged. The view loads the shared `/wizard-os-home/core/app-client.js`. The server is Python standard library only. COROS is a trademark of its owner; this app uses COROS's public self-service MCP connection with the owner's own COROS sign-in and is not affiliated with COROS. The icon is a generic watch, not COROS's logo. Distributed under GPL-3.0-only; no warranty.
