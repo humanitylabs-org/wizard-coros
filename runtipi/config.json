@@ -10,8 +10,8 @@
     "network"
   ],
   "description": "Connect your COROS with one button inside the app. What you need: only your free COROS account (the one your watch syncs to). You sign in on COROS's own page; there is no developer account, approval, key or fee, because the app uses COROS's self-service MCP connection for apps. The app keeps a private synced copy and offers it read-only to other apps on this box through the health-data contract; the Health app shows sleep score and stages, HRV, resting heart rate and COROS training load. COROS has no daily recovery score, so this source sends none.",
-  "tipi_version": 1,
-  "version": "0.1.0",
+  "tipi_version": 2,
+  "version": "0.1.1",
   "source": "https://github.com/oscarhenrycollins/wizard-coros",
   "exposable": false,
   "supported_architectures": [
@@ -19,7 +19,7 @@
     "arm64"
   ],
   "created_at": 1793441406000,
-  "updated_at": 1793441406000,
+  "updated_at": 1794360353620,
   "dynamic_config": true,
   "min_tipi_version": "4.8.0",
   "uid": 1000,

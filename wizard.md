@@ -4,7 +4,7 @@ id: wizard-coros
 name: Coros
 type: external
 category: system
-version: 0.1.0
+version: 0.1.1
 summary: Connect your COROS. Health and your other apps get read-only sleep, HRV, resting heart rate and training load.
 tags: [data]
 license: GPL-3.0-only
@@ -35,6 +35,9 @@ system: true
 uses: []
 needs: []
 health: /healthz
+switches:
+  contract: wizard.app-switches/1
+  path: /api/switches
 ---
 
 # Coros

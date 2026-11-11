@@ -1,7 +1,7 @@
 ---
 name: wizard-coros
 description: Use when the owner asks about his COROS connection, COROS setup or sync. Health questions go to Health.
-version: 0.1.0
+version: 0.1.1
 author: Humanity Labs
 license: GPL-3.0-only
 metadata:
